@@ -1,0 +1,67 @@
+## UBUNTU 22.04 clean installation
+
+sudo apt update
+sudo apt upgrade
+nvcc --version
+sudo apt install nvidia-cuda-toolkit
+sudo apt install python3-dev python3-pip
+sudo apt install python3-pip
+pip3 install --upgrade pip
+nvcc --version
+nvidia-smi
+pip3 --version
+sudo pip3 install nvidia-cudnn-cu11==8.5.0.96
+sudo pip3 install tensorflow==2.11.0
+sudo apt install nvidia-cudnn
+pip install --upgrade tensorflow==2.8
+
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+####### works!! [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')] ####
+
+
+
+#################################################################à
+pip install -r requirements.txt
+
+export N_GPU=$(nvidia-smi --list-gpus | wc -l)
+echo "There are ${N_GPU} GPUs available."
+
+export PYTHONPATH=${PWD}/..
+
+
+#################################################################
+
+
+nvflare provision
+2
+
+nvflare provision -p project.yml
+
+python prepare_data.py --data_dir dataset --num_sites 2 --seed 667
+
+workspace/example_project/prod_00/server1/startup/start.sh
+
+netstat -tlpn
+
+#client1
+export PYTHONPATH=${PWD}/..
+chmod u+x workspace/example_project/prod_00/site-1/startup/start.sh
+workspace/example_project/prod_00/site-1/startup/start.sh
+
+#client2
+chmod u+x workspace/example_project/prod_00/site-2/startup/start.sh
+workspace/example_project/prod_00/site-2/startup/start.sh
+
+##SERVER  ascolta sulla 8002 e sulla 8003
+
+## ADMIN CLIENT 
+workspace/example_project/prod_00/admin@nvidia.com/startup/fl_admin.sh
+
+admin@nvidia.com
+
+## copy file on trasnfer client1
+
+ ## create job
+
+
+ pkill -9
